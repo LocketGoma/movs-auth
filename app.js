@@ -12,13 +12,20 @@ var eveonlinejs = require('eveonlinejs')
 
 var config = require('./config/global.js');
 var User = require('./models/user.js');
+var syncdb = require('./controllers/usersync.js');
 
 var routes = require('./routes/index');
 
 var app = express();
 
 // Configuration DB
-mongoose.connect(config.MongoURL);
+mongoose.connect(config.MongoURL, function(err) {
+  if (err) throw err;
+
+  // Sync corp member DB
+  syncdb.syncMembers();
+  syncdb.startSync();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,15 +41,15 @@ passport.use('eveonline', new EveOnlineStrategy({
     eveonlinejs.fetch('eve:CharacterInfo', {
       characterID: characterInformation.CharacterID
     }, function (err, result) {
-      if (err) return done(err, user);
-
-      User.findOrCreate({
-        CharacterID: characterInformation.CharacterID
+      User.findOne({
+        characterID: characterInformation.CharacterID
       }, function (err, user) {
-        user.CharacterName = result.characterName;
-        user.CorporationID = result.corporationID;
-        user.CorporationName = result.corporation;
-        user.save();
+        if(err) throw err;
+
+        if(!user) {
+          return done(null, false);
+        }
+
         return done(err, user);
       });
     });

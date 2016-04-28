@@ -21,13 +21,13 @@ html
           ul.nav.navbar-nav.navbar-right
             if user
               li.dropdown
-                a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle #{user.CharacterName} 
+                a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle #{user.name}
                   span.caret
                 ul.dropdown-menu
                   li
                     a(href='#')
-                      img(src='https://image.eveonline.com/Character/#{user.CharacterID}_32.jpg')
-                      |  #{user.CharacterName}
+                      img(src='//image.eveonline.com/Character/#{user.characterID}_32.jpg')
+                      |  #{user.name}
                   li.divider
                   li
                     a(href='/logout') Logout

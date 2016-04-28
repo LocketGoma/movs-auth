@@ -2,10 +2,24 @@ var mongoose = require('mongoose');
 var findOrCreate = require('mongoose-findorcreate')
  
 var userSchema = mongoose.Schema({
-    CharacterID: String,
-    CharacterName: String,
-    CorporationID: String,
-    CorporationName: String,
+    characterID: Number,
+    name: String,
+    corporationID: Number,
+    corporationName: String,
+    startDateTime: Date,
+    baseID: String,
+    base: String,
+    title: String,
+    logonDateTime: Date,
+    logoffDateTime: Date,
+    locationID: String,
+    location: String,
+    shipTypeID: Number,
+    shipType: String,
+    roles: String,
+    grantableRoles: String,
+}, {
+  timestamps: true
 });
 userSchema.plugin(findOrCreate);
 
