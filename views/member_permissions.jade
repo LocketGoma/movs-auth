@@ -1,0 +1,51 @@
+extends layout
+
+block append head
+  style.
+    table td, table th {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+block content
+  h2 Member Permission Management
+  table.table.table-striped.table-hover.table-bordered
+    thead
+      tr
+        th(rowspan=2) Corporation
+        th(rowspan=2) Name
+        th(colspan=2) Permissions
+        th Roles
+      tr
+        th Admin
+        th Director
+        th FC
+    tbody
+      each member in members
+        tr
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Corporation/' + member.corporationID + '_32.png')
+            |  #{member.corporationName}
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Character/' + member.characterID + '_32.jpg')
+            |  #{member.name}
+          td
+            if member.isAdmin
+              span.label.label-success YES
+            else
+              span.label.label-danger NO
+          td
+            if member.isDirector
+              span.label.label-success YES
+            else
+              span.label.label-danger NO
+          if member.hasRoles.length
+            each role in member.hasRoles
+              td
+                if role === 'FC'
+                  span.label.label-success YES
+                else
+                  span.label.label-danger NO
+          else
+            td
+              span.label.label-danger NO

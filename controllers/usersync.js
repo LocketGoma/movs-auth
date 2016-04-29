@@ -13,7 +13,7 @@ module.exports = {
   },
 
   syncMembers : function() {
-    console.log('Sync Member DB : ' + Date());
+    console.log('Sync Member DB : ' + new Date());
 
     for (corpID in corpAPI.EVECorpAPI) {
       (function(corpID) {

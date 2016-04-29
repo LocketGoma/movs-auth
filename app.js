@@ -15,6 +15,7 @@ var User = require('./models/user.js');
 var syncdb = require('./controllers/usersync.js');
 
 var routes = require('./routes/index');
+var adminRoutes = require('./routes/admin.js');
 
 var app = express();
 
@@ -83,6 +84,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/admin', adminRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

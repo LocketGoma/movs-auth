@@ -1,0 +1,30 @@
+extends layout
+
+block append head
+  style.
+    table td, table th {
+      text-align: center;
+    }
+
+block content
+  h2 Member Login Tracking
+  table.table.table-striped.table-hover.table-bordered
+    thead
+      tr
+        th Corporation
+        th Name
+        th Join
+        th Last Login
+        th Last Logoff
+    tbody
+      each member in members
+        tr
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Corporation/' + member.corporationID + '_32.png')
+            |  #{member.corporationName}
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Character/' + member.characterID + '_32.jpg')
+            |  #{member.name}
+          td= member.startDateTime.toISOString().slice(0,10)
+          td= member.logonDateTime.toISOString().slice(0,10)
+          td= member.logoffDateTime.toISOString().slice(0,10)
