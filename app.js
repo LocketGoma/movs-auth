@@ -17,12 +17,28 @@ var syncdb = require('./controllers/usersync.js');
 var routes = require('./routes/index');
 var adminRoutes = require('./routes/admin.js');
 var servicesRoutes = require('./routes/services.js');
+var groupPolicy = require('./policies/policy_group')
 
 var app = express();
 
 // Configuration DB
 mongoose.connect(config.MongoURL, function(err) {
   if (err) throw err;
+
+  // Initiate Policy
+  // WP Groups
+  var groups = new groupPolicy().groups;
+  var WpGroupPolicy = require('./models/wp_group_policy');
+  WpGroupPolicy.count(function (err, count) {
+    if(count === 0) {
+      console.log('Need to init wp group policies');
+      groups.forEach(function(name) {
+        var policy = new WpGroupPolicy();
+        policy.authGroup = name;
+        policy.save();
+      });
+    }
+  });
 
   // Sync corp member DB
   syncdb.syncMembers();

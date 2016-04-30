@@ -8,22 +8,27 @@ block append head
 
 block content
   h2 Movingstar Auth
-  .panel.panel-default
+  form(name='loginform', action='https://community.movingstar.org/wp-login.php', method='post').panel.panel-default
     .panel-heading
       h3.panel-title <i class="fa fa-commenting-o" aria-hidden="true"></i> Community
     .panel-body
       if service && service.community && service.community.activated
-        p Community URL : community.movingstar.org
-        p= service.community.id
-        p= service.community.pass
+        p Community URL : <a href="https://community.movingstar.org">https://community.movingstar.org <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        ul
+          li Username : <code>#{service.community.id}</code>
+          li Password : <code>#{service.community.pass}</code>
+
+          input(type='hidden', name='log', value=service.community.id)
+          input(type='hidden', name='pwd', value=service.community.pass)
+          input(type='hidden', name='redirect_to', value='https://community.movingstar.org')
       else
         p Community Service is not activated
     .panel-footer.text-right
       if service && service.community && service.community.activated
-        a(href='/services/community_refresh').btn.btn-primary <i class="fa fa-refresh" aria-hidden="true"></i> Regeneration
-        a(href='/services/community_sync_permission').btn.btn-primary <i class="fa fa-retweet" aria-hidden="true"></i> Sync Permission
+        button.btn.btn-primary(type='submit', name='wp-submit') <i class="fa fa-sign-in" aria-hidden="true"></i> Log In
+        a(href='/services/community_refresh').btn.btn-danger <i class="fa fa-refresh" aria-hidden="true"></i> Refresh
       else
-        a(href='/services/community_refresh') <i class="fa fa-power-off" aria-hidden="true"></i> Activate
+        a(href='/services/community_refresh').btn.btn-primary <i class="fa fa-power-off" aria-hidden="true"></i> Activate
 
   .panel.panel-default
     .panel-heading

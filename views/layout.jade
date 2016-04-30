@@ -25,7 +25,7 @@ html
             if user
               if user.isAdmin
                 li.dropdown
-                  a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle Administrative Tools&nbsp;
+                  a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle <i class="fa fa-wrench" aria-hidden="true"></i> Administrative Tools&nbsp;
                     span.caret
                   ul.dropdown-menu
                     li.dropdown-header Member Management
@@ -35,11 +35,16 @@ html
                       a(href='/admin/member_locations') <i class="fa fa-location-arrow" aria-hidden="true"></i> Member Location Tracking
                     li
                       a(href='/admin/member_logins') <i class="fa fa-plane" aria-hidden="true"></i> Member Login Tracking
+                    li.divider
                     li.dropdown-header Connected Service Management
                     li
                       a(href='/admin/member_services') <i class="fa fa-server" aria-hidden="true"></i> Connected Services
+                    li.divider
+                    li.dropdown-header Policy Management
+                    li
+                      a(href='/admin/wp_groups') <i class="fa fa-group" aria-hidden="true"></i> Wordpress Groups
               li.dropdown
-                a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle #{user.name}&nbsp;
+                a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle <i class="fa fa-cog" aria-hidden="true"></i> #{user.name}&nbsp;
                   span.caret
                 ul.dropdown-menu
                   li
@@ -48,7 +53,7 @@ html
                       |  #{user.name}
                   li.divider
                   li
-                    a(href='/logout') Logout
+                    a(href='/logout') <i class="fa fa-sign-out" aria-hidden="true"></i> Log Out
 
     .container
       block content

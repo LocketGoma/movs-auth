@@ -4,6 +4,8 @@ var passport = require('passport');
 var User = require('../models/user');
 var Service = require('../models/services');
 var execPhp = require('exec-php');
+var WpGroupPolicy = require('../models/wp_group_policy');
+var groupPolicy = require('../policies/policy_group');
 
 /* Member Mgmt */
 router.get('/community_refresh', checkLogin, function(req, res, next) {
@@ -11,17 +13,21 @@ router.get('/community_refresh', checkLogin, function(req, res, next) {
     execPhp('../services/wp/user.php', '/usr/bin/php', function(err, php, output){
       var wp_name = req.user.name.replace(" ","_");
       var wp_passwd = generatePassword();
+      var wp_role = groupPolicy().getAuthGroup(req.user);
 
-      php.refresh_user(wp_name, wp_passwd, req.user.name, req.user.characterID, function(error, result, output, printed){
-        Service.findOrCreate({user: req.user}, function(err, service, created) {
-          service.community.activated = true;
-          service.community.id = wp_name;
-          service.community.pass = wp_passwd;
-          service.save();
+      WpGroupPolicy.findOne({authGroup: wp_role}, function(err, group) {
+        console.log(group);
+        php.refresh_user(wp_name, wp_passwd, req.user.name, req.user.characterID, group.wpGroup, function(error, result, output, printed){
+          Service.findOrCreate({user: req.user}, function(err, service, created) {
+            service.community.activated = true;
+            service.community.id = wp_name;
+            service.community.pass = wp_passwd;
+            service.save();
+          });
+
+          res.redirect('/');
         });
-
-        res.redirect('/');
-      });
+      })
     });
   });
 });

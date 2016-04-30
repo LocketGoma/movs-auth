@@ -5,7 +5,7 @@
 require_once "config.php";
 require_once WP_INSTALLED_PATH . "/wp-load.php";
 
-function refresh_user($name, $pass, $dispname, $charid) {
+function refresh_user($name, $pass, $dispname, $charid, $role) {
   // Find a user from WP
   $user = get_user_by("login", $name);
 
@@ -18,6 +18,7 @@ function refresh_user($name, $pass, $dispname, $charid) {
       "user_email"    => $name . "@movingstar.org",
       "display_name"  => $dispname,
       "first_name"    => $charid,
+      "role"          => $role,
     ));
 
     if (is_wp_error($ret)) {
@@ -34,6 +35,7 @@ function refresh_user($name, $pass, $dispname, $charid) {
       "user_email"    => $name . "@movingstar.org",
       "display_name"  => $dispname,
       "first_name"    => $charid,
+      "role"          => $role,
     ));
 
     if (is_wp_error($ret)) {
