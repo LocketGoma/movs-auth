@@ -1,14 +1,27 @@
 extends layout
 
 block append head
+  link(rel='stylesheet', type='text/css', href='/css/dataTables.bootstrap.min.css')
   style.
     table td, table th {
       text-align: center;
     }
 
+block append scripts
+  script(src='/js/jquery.dataTables.min.js')
+  script(src='/js/dataTables.bootstrap.min.js')
+  script.
+    $(document).ready(function() {
+      $('#locations').DataTable({
+        "paging": true,
+        "stateSave" : true,
+        "lengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+      });
+    } );
+
 block content
   h2 Member Location Tracking
-  table.table.table-striped.table-hover.table-bordered
+  table#locations.table.table-striped.table-hover.table-bordered
     thead
       tr
         th Corporation

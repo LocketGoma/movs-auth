@@ -7,6 +7,8 @@ html
     title Moving Star Authentication Portal
     link(rel='stylesheet', type='text/css', href='/css/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', type='text/css', href='/css/movs.css')
+
   body
     nav.navbar.navbar-default
       .container
@@ -49,6 +51,11 @@ html
 
     .container
       block content
+    footer
+      .container
+        .row.text-center
+          p Copyright(C) 2016 Moving Star Corporation in EVE Online. All rights reserved.
 
-    script(src='/js/jquery-1.12.0.min.js')
-    script(src='/js/bootstrap.min.js')
+    block scripts
+      script(src='/js/jquery-1.12.0.min.js')
+      script(src='/js/bootstrap.min.js')
