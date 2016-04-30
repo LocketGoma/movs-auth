@@ -16,6 +16,7 @@ var syncdb = require('./controllers/usersync.js');
 
 var routes = require('./routes/index');
 var adminRoutes = require('./routes/admin.js');
+var servicesRoutes = require('./routes/services.js');
 
 var app = express();
 
@@ -39,20 +40,16 @@ passport.use('eveonline', new EveOnlineStrategy({
     callbackURL: config.EVEcallbackURL,
   },
   function(characterInformation, done) {
-    eveonlinejs.fetch('eve:CharacterInfo', {
+    User.findOne({
       characterID: characterInformation.CharacterID
-    }, function (err, result) {
-      User.findOne({
-        characterID: characterInformation.CharacterID
-      }, function (err, user) {
-        if(err) throw err;
+    }, function (err, user) {
+      if(err) throw err;
 
-        if(!user) {
-          return done(null, false);
-        }
+      if(!user) {
+        return done(null, false);
+      }
 
-        return done(err, user);
-      });
+      return done(err, user);
     });
   })
 );
@@ -85,6 +82,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/admin', adminRoutes);
+app.use('/services', servicesRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

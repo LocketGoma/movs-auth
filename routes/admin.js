@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
+var Service = require('../models/services');
 
 /* Member Mgmt */
 router.get('/member_permissions', onlyAdmin, function(req, res, next) {
@@ -30,6 +31,16 @@ router.get('/member_logins', onlyAdmin, function(req, res, next) {
       title: 'Member Login Tracking',
       user: req.user,
       members,
+    });
+  });
+});
+
+router.get('/member_services', onlyAdmin, function(req, res, next) {
+  Service.find({}).populate('user').exec(function(err, services) {
+    res.render('member_services', {
+      title: 'Connected Services',
+      user: req.user,
+      services,
     });
   });
 });

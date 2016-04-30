@@ -1,0 +1,46 @@
+extends layout
+
+block append head
+  style.
+    table td, table th {
+      text-align: center;
+    }
+
+block content
+  h2 Connected Services
+  table.table.table-striped.table-hover.table-bordered
+    thead
+      tr
+        th(rowspan='2') Corporation
+        th(rowspan='2') Name
+        th(colspan='4') Services
+      tr
+        th Community
+        th Mumble
+        th Fleet Manager
+        th Jabber
+    tbody
+      each service in services
+        tr
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Corporation/' + service.user.corporationID + '_32.png')
+            |  #{service.user.corporationName}
+          td.text-left
+            img(width='32px', height='32px', src='//image.eveonline.com/Character/' + service.user.characterID + '_32.jpg')
+            |  #{service.user.name}
+          if service && service.community && service.community.activated
+            td= service.community.id
+          else
+            td disabled
+          if service && service.mumble && service.mumble.activated
+            td activated
+          else
+            td disabled
+          if service && service.fleetmgmt && service.fleetmgmt.activated
+            td activated
+          else
+            td disabled
+          if service && service.jabber && service.jabber.activated
+            td activated
+          else
+            td disabled
