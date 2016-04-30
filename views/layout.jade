@@ -7,6 +7,7 @@ html
     title Moving Star Authentication Portal
     link(rel='stylesheet', type='text/css', href='/css/bootstrap.min.css')
     link(rel='stylesheet', type='text/css', href='/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', type='text/css', href='/css/font-awesome.min.css')
     link(rel='stylesheet', type='text/css', href='/css/movs.css')
 
   body
@@ -29,14 +30,14 @@ html
                   ul.dropdown-menu
                     li.dropdown-header Member Management
                     li
-                      a(href='/admin/member_permissions') Member Permissions
+                      a(href='/admin/member_permissions') <i class="fa fa-star" aria-hidden="true"></i> Member Permissions
                     li
-                      a(href='/admin/member_locations') Member Location Tracking
+                      a(href='/admin/member_locations') <i class="fa fa-location-arrow" aria-hidden="true"></i> Member Location Tracking
                     li
-                      a(href='/admin/member_logins') Member Login Tracking
+                      a(href='/admin/member_logins') <i class="fa fa-plane" aria-hidden="true"></i> Member Login Tracking
                     li.dropdown-header Connected Service Management
                     li
-                      a(href='/admin/member_services') Connected Services
+                      a(href='/admin/member_services') <i class="fa fa-server" aria-hidden="true"></i> Connected Services
               li.dropdown
                 a(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false').dropdown-toggle #{user.name}&nbsp;
                   span.caret
