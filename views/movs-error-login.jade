@@ -1,7 +1,74 @@
-extends layout
+doctype html
+html
+  block head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Connect to Movingstar
+    link(rel='stylesheet', type='text/css', href='/css/font-awesome.min.css')
+    style.
+      @import url(https://fonts.googleapis.com/css?family=Play:400,700);
 
-block content
-  h2.text-center Login
-  p.text-center
-    a(href='/login')
-      img(src='/images/EVE_SSO_Login_Buttons_Large_Black.png')
+      html, body {
+        color: #fff;
+        font-family: 'Play';
+        text-align: center;
+        height: 100%;
+        background: #000;
+        margin: 0;
+      }
+
+      body {
+        background-image: url('/images/main-bg.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+
+      #ssobtn {
+        margin-top: 0px;
+      }
+
+      #main {
+        height: 100%;
+        width: 100%;
+        display: table;
+      }
+
+      #wrapper {
+        display: table-cell;
+        height: 100%;
+        vertical-align: middle;
+      }
+
+      h1 {
+        font-size: 35px;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 1);
+      }
+
+      #character {
+        max-width: 420px;
+        margin-bottom: -5px;
+        margin-left: -60px;
+      }
+
+      @media only screen and (max-width: 768px) {
+        h1 {
+          font-size: 28px;
+        }
+
+        #character {
+          max-width: 280px;
+          margin-bottom: -5px;
+          margin-left: -30px;
+        }
+      }
+
+  body
+    #main
+      #wrapper
+        h1 Connect to Movingstar
+        img#character(src='/images/characters.png')
+        p#ssobtn
+          a(href='/login')
+            img(src='/images/EVE_SSO_Login_Buttons_Large_Black.png')
